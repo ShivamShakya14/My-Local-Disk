@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>File Manager</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/style.css" rel="stylesheet">
+</head>
+<body>
+	<div class="container my-4">
+	  <div class="d-flex justify-content-between align-items-center mb-3">
+		<h1 class="mb-0">📁 Folder: <small class="text-muted">{{ current_path or '/' }}</small></h1>
+		
+		<!-- Right side buttons: Dark Mode + Logout -->
+		<div class="d-flex align-items-center gap-2">
+		  <!--
+		  <button id="toggle_dark" class="btn btn-outline-secondary btn-sm">🌙 Dark Mode</button>
+		  -->
+		  <a href="/logout" class="btn btn-outline-secondary btn-sm">Logout</a>
+		</div>
+	  </div>
+
+
+    {% if current_path %}
+      {% set up_path = current_path.rsplit('/', 1)[0] %}
+      <p><a href="/{{ up_path if '/' in current_path else '' }}" class="btn btn-sm btn-outline-secondary">&larr; Back</a></p>
+    {% endif %}
+
+    <div id="drop_zone" class="mb-3">
+      Drag & Drop files here or click to select
+    </div>
+    <input type="file" id="file_input" multiple style="display:none;" />
+
+    <div class="mb-3 d-flex flex-wrap gap-2 align-items-center">
+      <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#newFolderModal">📁 New Folder</button>
+      <button id="download_btn" class="btn btn-success btn-sm" disabled>Download</button>
+      <button id="delete_btn" class="btn btn-danger btn-sm" disabled>Delete</button>
+      <button id="rename_btn" class="btn btn-warning btn-sm" disabled>Rename</button>
+    </div>
+
+    <ul id="file_list" class="list-group">
+      {% for file in files %}
+      <li class="list-group-item d-flex align-items-center justify-content-between">
+        <div class="file-item">
+          <input type="checkbox" class="select_item" data-name="{{ file.name }}" data-isdir="{{ file.is_dir }}" />
+          {% if file.is_dir %}
+            <a class="folder" href="/{{ file.path }}">📁{{ file.name }}/</a>
+          {% else %}
+            <span>📄{{ file.name }}</span>
+          {% endif %}
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- Modal for New Folder -->
+  <div class="modal fade" id="newFolderModal" tabindex="-1" aria-labelledby="newFolderModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <form id="folder_form" class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="newFolderModalLabel">Create New Folder</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="text" id="new_folder" class="form-control" placeholder="Enter folder name" required>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/script.js"></script>
+</body>
+</html>
