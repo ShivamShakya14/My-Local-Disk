@@ -16,7 +16,6 @@ It works like a lightweight personal cloud storage system (similar to Google Dri
 - ✏️ Rename files and folders
 - 📂 Create new folders
 - 🔐 Simple login system
-- 🌙 Dark mode support
 
 ---
 
@@ -74,6 +73,7 @@ Password: admin
 ⚠️ You can change these in app.py
 
 📦 How It Works
+
 🔹 File Storage
 
 All uploaded files are stored in the shared/ folder inside the project directory.
