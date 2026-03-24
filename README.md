@@ -29,6 +29,7 @@ It works like a lightweight personal cloud storage system (similar to Google Dri
 ---
 
 ## 📂 Project Structure
+```
 my-local-disk/
 │── app.py
 │── shared/ # File storage directory
@@ -38,7 +39,7 @@ my-local-disk/
 │── static/
 │ ├── script.js
 │ └── style.css
-
+```
 
 ---
 
@@ -47,7 +48,7 @@ my-local-disk/
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/my-local-disk.git
+git clone https://github.com/shivamshakya14/my-local-disk.git
 cd my-local-disk
 ```
 
